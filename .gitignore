@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# AIMET / build artifacts
+*.so
+*.o
+*.a
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large model/checkpoint files
+*.pt
+*.pth
+*.onnx
+*.bin
+*.safetensors
+
+# Temporary files
+*.tmp
+*.temp
