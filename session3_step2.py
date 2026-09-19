@@ -19,4 +19,28 @@ model = TwoConv()
 model.eval()
 
 
+# Deliberately unbalance conv1's filters: make filter 0 tiny, filter 3 huge
+with torch.no_grad():
+    model.conv1.weight[0] *= 0.01
+    model.conv1.weight[3] *= 50.0
 
+def print_channel_ranges(model, label):
+    print(f"\n{label}")
+    for i in range(4):
+        w = model.conv1.weight[i]
+        print(f"  filter {i}: min={w.min().item():.4f}, max={w.max().item():.4f}")
+
+print_channel_ranges(model, "Before CLE")
+
+dummy_input = torch.randn(1, 3, 8, 8)
+with torch.no_grad():
+    before_output = model(dummy_input)
+
+equalize_model(model, input_shapes=(1, 3, 8, 8))
+
+print_channel_ranges(model, "After CLE")
+
+with torch.no_grad():
+    after_output = model(dummy_input)
+
+print("\nMax difference in final output:", (before_output - after_output).abs().max().item())
