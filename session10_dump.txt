@@ -1,0 +1,49 @@
+=== ModelValidator on the RAW model (before prepare/fold) ===
+2026-09-26 06:42:18,427 - Utils - INFO - Running validator check <function validate_for_reused_modules at 0x759fde32e200>
+2026-09-26 06:42:19,306 - Utils - ERROR - The following modules are used more than once in the model: ['pool']
+AIMET features are not designed to work with reused modules. Please redefine your model to use distinct modules for each instance.
+2026-09-26 06:42:19,307 - Utils - INFO - Running validator check <function validate_for_missing_modules at 0x759fde32e340>
+2026-09-26 06:42:19,402 - Utils - ERROR - Functional ops that are not marked as math invariant were found in the model. AIMET features will not work properly for such ops.
+Consider the following choices: 
+1. Redefine as a torch.nn.Module in the class definition.
+2. The op can remain as a functional op due to being math invariant, but the op type has not been added to ConnectedGraph.math_invariant_types set. 
+Add an entry to ignore the op by importing the set and adding the op type:
+
+	from aimet_torch.meta.connectedgraph import ConnectedGraph
+	ConnectedGraph.math_invariant_types.add(...)
+
+The following functional ops were found. The parent module is named for ease of locating the ops within the model definition.
+	relu_2; op_type: relu          parent module: SimpleCNN
+	relu_6; op_type: relu          parent module: SimpleCNN
+
+2026-09-26 06:42:19,403 - Utils - INFO - The following validator checks failed:
+2026-09-26 06:42:19,404 - Utils - INFO - 	<function validate_for_reused_modules at 0x759fde32e200>
+2026-09-26 06:42:19,404 - Utils - INFO - 	<function validate_for_missing_modules at 0x759fde32e340>
+Model valid: False
+
+=== ModelValidator on the PREPARED + BN-folded model ===
+2026-09-26 06:42:19,432 - ModelPreparer - INFO - Functional         : Adding new module for node: {module_relu} 
+2026-09-26 06:42:19,433 - ModelPreparer - INFO - Functional         : Adding new module for node: {module_relu_1} 
+2026-09-26 06:42:19,433 - ModelPreparer - INFO - Reused/Duplicate   : Adding new module for node: {module_pool_1} 
+2026-09-26 06:42:19,615 - Utils - INFO - Running validator check <function validate_for_reused_modules at 0x759fde32e200>
+2026-09-26 06:42:19,616 - Utils - INFO - Running validator check <function validate_for_missing_modules at 0x759fde32e340>
+2026-09-26 06:42:19,645 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-26 06:42:19,646 - Utils - INFO - All validation checks passed.
+Model valid: True
+
+=== ArchChecker on the prepared model ===
+2026-09-26 06:42:19,672 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-26 06:42:19,673 - Utils - INFO - Running node checkes.
+2026-09-26 06:42:19,673 - Utils - INFO - Graph/Node: GraphModule.conv1: Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) fails check: {'_check_conv_channel_larger_than_32', '_check_conv_channel_32_base'}
+2026-09-26 06:42:19,673 - Utils - INFO - Graph/Node: GraphModule.conv2: Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) fails check: {'_check_conv_channel_larger_than_32', '_check_conv_channel_32_base'}
+2026-09-26 06:42:19,673 - Utils - INFO - Running pattern checkes.
+Traceback (most recent call last):
+  File "/home/lalith/aimet-learning/session10_ModelValidator.py", line 44, in <module>
+    report = ArchChecker.check_model_arch(prepared, dummy_input, result_dir="/tmp/arch_checker_results")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lalith/aimet/venv/lib/python3.12/site-packages/aimet_torch/arch_checker/arch_checker.py", line 151, in check_model_arch
+    ArchChecker._arch_checker_report.export_to_html()
+  File "/home/lalith/aimet/venv/lib/python3.12/site-packages/aimet_torch/arch_checker/arch_checker_utils.py", line 173, in export_to_html
+    with open(html_filename, "w") as html_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/arch_checker_results/arch_checker_report.html'

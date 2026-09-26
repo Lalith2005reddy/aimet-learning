@@ -1,0 +1,75 @@
+Files already downloaded and verified
+Files already downloaded and verified
+FP32 accuracy (full test set): 57.22%
+2026-09-26 06:30:34,919 - CompRatioSelect - INFO - Analyzing compression ratio: 0.25 =====================>
+2026-09-26 06:30:34,921 - Svd - INFO - Spatial SVD splitting layer: conv1 using rank: 1
+2026-09-26 06:30:35,067 - CompRatioSelect - INFO - Layer conv1, comp_ratio 0.250000 ==> eval_score=0.114062
+2026-09-26 06:30:35,068 - CompRatioSelect - INFO - Analyzing compression ratio: 0.50 =====================>
+2026-09-26 06:30:35,069 - Svd - INFO - Spatial SVD splitting layer: conv1 using rank: 3
+2026-09-26 06:30:35,200 - CompRatioSelect - INFO - Layer conv1, comp_ratio 0.500000 ==> eval_score=0.114844
+2026-09-26 06:30:35,200 - CompRatioSelect - INFO - Analyzing compression ratio: 0.75 =====================>
+2026-09-26 06:30:35,203 - Svd - INFO - Spatial SVD splitting layer: conv1 using rank: 5
+2026-09-26 06:30:35,332 - CompRatioSelect - INFO - Layer conv1, comp_ratio 0.750000 ==> eval_score=0.293750
+2026-09-26 06:30:35,332 - CompRatioSelect - INFO - Analyzing compression ratio: 0.25 =====================>
+2026-09-26 06:30:35,335 - Svd - INFO - Spatial SVD splitting layer: conv2 using rank: 8
+2026-09-26 06:30:35,529 - CompRatioSelect - INFO - Layer conv2, comp_ratio 0.250000 ==> eval_score=0.383594
+2026-09-26 06:30:35,530 - CompRatioSelect - INFO - Analyzing compression ratio: 0.50 =====================>
+2026-09-26 06:30:35,532 - Svd - INFO - Spatial SVD splitting layer: conv2 using rank: 16
+2026-09-26 06:30:35,695 - CompRatioSelect - INFO - Layer conv2, comp_ratio 0.500000 ==> eval_score=0.499219
+2026-09-26 06:30:35,695 - CompRatioSelect - INFO - Analyzing compression ratio: 0.75 =====================>
+2026-09-26 06:30:35,697 - Svd - INFO - Spatial SVD splitting layer: conv2 using rank: 24
+2026-09-26 06:30:35,853 - CompRatioSelect - INFO - Layer conv2, comp_ratio 0.750000 ==> eval_score=0.559375
+2026-09-26 06:30:35,854 - CompRatioSelect - INFO - Greedy selection: Saved eval dict to ./data/greedy_selection_eval_scores_dict.pkl
+2026-09-26 06:30:35,854 - CompRatioSelect - INFO - Greedy selection: overall_min_score=0.114062, overall_max_score=0.559375
+2026-09-26 06:30:35,854 - CompRatioSelect - INFO - Greedy selection: Original model cost=(Cost: memory=25520, mac=1642496)
+2026-09-26 06:30:35,855 - CompRatioSelect - INFO - Greedy selection: final choice - comp_ratio=0.461347, score=0.383577
+2026-09-26 06:30:35,857 - Svd - INFO - Spatial SVD splitting layer: conv2 using rank: 8
+
+ **********************************************************************************************
+Compressed Model Statistics
+Baseline model accuracy: 0.572200, Compressed model accuracy: 0.395800
+Compression ratio for memory=0.864577, mac=0.461347
+
+**********************************************************************************************
+
+Per-layer Stats
+    Name:conv1, compression-ratio: None
+    Name:conv2, compression-ratio: 0.25
+
+**********************************************************************************************
+
+Greedy Eval Dict
+    Layer: conv1
+        Ratio=0.25, Eval score=0.1140625
+        Ratio=0.50, Eval score=0.11484375
+        Ratio=0.75, Eval score=0.29375
+    Layer: conv2
+        Ratio=0.25, Eval score=0.38359375
+        Ratio=0.50, Eval score=0.49921875
+        Ratio=0.75, Eval score=0.559375
+
+**********************************************************************************************
+
+
+Compressed model accuracy (full test set): 39.58%
+
+Compressed model structure:
+SimpleCNN(
+  (conv1): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv2): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 1), stride=(1, 1), padding=(1, 0), bias=False)
+    (1): Conv2d(8, 32, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+  )
+  (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (fc): Linear(in_features=2048, out_features=10, bias=True)
+)
+Fine-tune epoch 1 done
+Fine-tune epoch 2 done
+Fine-tune epoch 3 done
+Compressed + fine-tuned accuracy: 68.29%
+FP32 control epoch 1 done
+FP32 control epoch 2 done
+FP32 control epoch 3 done
+FP32 with 3 extra epochs (control): 66.36%

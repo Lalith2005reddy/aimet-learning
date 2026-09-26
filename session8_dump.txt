@@ -1,0 +1,29 @@
+Files already downloaded and verified
+Files already downloaded and verified
+2026-09-26 05:54:50,005 - ModelPreparer - INFO - Functional         : Adding new module for node: {module_relu} 
+2026-09-26 05:54:50,006 - ModelPreparer - INFO - Functional         : Adding new module for node: {module_relu_1} 
+2026-09-26 05:54:50,006 - ModelPreparer - INFO - Reused/Duplicate   : Adding new module for node: {module_pool_1} 
+2026-09-26 05:54:50,264 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-26 05:54:50,325 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-26 05:54:50,331 - Quant - INFO - Selecting DefaultOpInstanceConfigGenerator to compute the specialized config. hw_version:None
+2026-09-26 05:54:51,119 - Quant - WARNING - Triton quantize_dequantize kernel failed to compile. Falling back to torch builtin implementation.
+/home/lalith/aimet/venv/lib/python3.12/site-packages/aimet_torch/common/quantsim.py:577: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  value = torch.tensor(value)
+2026-09-26 05:54:52,588 - QuantAnalyzer - INFO - FP32 eval score (W32A32): 0.572200
+2026-09-26 05:54:53,491 - QuantAnalyzer - INFO - Weight-quantized eval score (W4A32): 0.469800
+2026-09-26 05:54:54,354 - QuantAnalyzer - INFO - Activation-quantized eval score (W32A8): 0.573700
+FP32:                          57.22%
+Weight-only 4-bit (W4A32):     46.98%
+Activation-only 8-bit (W32A8): 57.37%
+2026-09-26 05:54:54,354 - QuantAnalyzer - INFO - 
+OPTION-1:
+All the quant wrappers are disabled.
+Starting per-layer analysis by enabling quant wrappers as per config file.
+2026-09-26 05:54:59,014 - QuantAnalyzer - INFO - Exported per-layer quant analysis (enabled) plot.
+
+Per-layer sensitivity (only this layer quantized, eval score):
+  conv1: 48.13%
+  module_relu: 57.25%
+  conv2: 56.26%
+  module_relu_1: 57.17%
+  fc: 57.13%

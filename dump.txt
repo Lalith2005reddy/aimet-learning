@@ -1,0 +1,85 @@
+Files already downloaded and verified
+Files already downloaded and verified
+2026-09-19 14:44:35,486 - ModelPreparer - INFO - Functional         : Adding new module for node: {module_relu} 
+2026-09-19 14:44:35,487 - ModelPreparer - INFO - Functional         : Adding new module for node: {module_relu_1} 
+2026-09-19 14:44:35,487 - ModelPreparer - INFO - Reused/Duplicate   : Adding new module for node: {module_pool_1} 
+FP32 (final split):            63.99%
+2026-09-19 14:44:36,354 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-19 14:44:36,358 - Quant - INFO - Selecting DefaultOpInstanceConfigGenerator to compute the specialized config. hw_version:None
+2026-09-19 14:44:37,073 - Quant - WARNING - Triton quantize_dequantize kernel failed to compile. Falling back to torch builtin implementation.
+/home/lalith/aimet/venv/lib/python3.12/site-packages/aimet_torch/common/quantsim.py:577: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  value = torch.tensor(value)
+Uniform W8/A8:                 63.20%
+2026-09-19 14:44:38,096 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-19 14:44:38,100 - Quant - INFO - Selecting DefaultOpInstanceConfigGenerator to compute the specialized config. hw_version:None
+Uniform W4/A8:                 59.21%
+2026-09-19 14:44:38,997 - ConnectedGraph - WARNING - Unable to isolate model outputs.
+2026-09-19 14:44:39,000 - Quant - INFO - Selecting DefaultOpInstanceConfigGenerator to compute the specialized config. hw_version:None
+2026-09-19 14:44:39,359 - MixedPrecision - INFO - Baseline FP32 accuracy: 0.630000
+2026-09-19 14:44:39,359 - MixedPrecision - INFO - Computing accuracy for maximum candidate
+2026-09-19 14:44:39,770 - MixedPrecision - INFO - QuantSim accuracy with candidate ((8, <QuantizationDataType.int: 1>), (8, <QuantizationDataType.int: 1>)) : 0.628000
+2026-09-19 14:44:40,139 - MixedPrecision - INFO - QuantSim accuracy with candidate ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) : 0.599500
+2026-09-19 14:44:40,376 - MixedPrecision - INFO - Removed old cached files and restarting computation
+2026-09-19 14:44:40,688 - MixedPrecision - INFO - 
+ Quantizer: QuantizerGroup(input_quantizers=('conv1_input_quantizer_idx_0',), output_quantizers=(), parameter_quantizers=('conv1',), supported_kernel_ops=('conv1',)) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.593500 
+
+2026-09-19 14:44:40,849 - MixedPrecision - INFO - 
+ Quantizer: QuantizerGroup(input_quantizers=(), output_quantizers=('module_relu',), parameter_quantizers=('conv2',), supported_kernel_ops=('conv2',)) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.637000 
+
+2026-09-19 14:44:41,011 - MixedPrecision - INFO - 
+ Quantizer: QuantizerGroup(input_quantizers=(), output_quantizers=('module_relu_1',), parameter_quantizers=('fc',), supported_kernel_ops=('fc',)) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.622000 
+
+2026-09-19 14:44:41,165 - MixedPrecision - INFO - 
+ Quantizer: QuantizerGroup(input_quantizers=(), output_quantizers=('fc',), parameter_quantizers=(), supported_kernel_ops=()) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.632500 
+
+2026-09-19 14:44:41,166 - MixedPrecision - INFO - Completed Accuracy list computation
+2026-09-19 14:44:41,371 - MixedPrecision - INFO - Time taken by phase1 is (0.0166) mins
+2026-09-19 14:44:41,604 - MixedPrecision - INFO - Removed old pareto list pickled file and restarting computation
+2026-09-19 14:44:41,954 - MixedPrecision - INFO - 
+ Quantizer group: QuantizerGroup(input_quantizers=('conv1_input_quantizer_idx_0',), output_quantizers=(), parameter_quantizers=('conv1',), supported_kernel_ops=('conv1',)) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.599000 Relative BitOps 0.500000 
+
+2026-09-19 14:44:42,344 - MixedPrecision - INFO - 
+ Quantizer group: QuantizerGroup(input_quantizers=(), output_quantizers=('module_relu',), parameter_quantizers=('conv2',), supported_kernel_ops=('conv2',)) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.631000 Relative BitOps 0.640898 
+
+2026-09-19 14:44:42,736 - MixedPrecision - INFO - 
+ Quantizer group: QuantizerGroup(input_quantizers=(), output_quantizers=('module_relu_1',), parameter_quantizers=('fc',), supported_kernel_ops=('fc',)) candidate: ((8, <QuantizationDataType.int: 1>), (4, <QuantizationDataType.int: 1>)) eval_score: 0.625000 Relative BitOps 0.634663 
+
+2026-09-19 14:44:42,736 - MixedPrecision - INFO - binary search trace: starting left and right index as 0,3
+mid index calculated as 1
+left and right calculated as 0,1
+final index returned 1
+
+2026-09-19 14:44:42,736 - MixedPrecision - INFO - Completed Pareto list computation
+2026-09-19 14:44:43,114 - MixedPrecision - INFO - AMP phase-2 final accuracy:0.626500
+2026-09-19 14:44:43,114 - MixedPrecision - INFO - Time taken by phase2 is (0.0290) mins
+2026-09-19 14:44:43,114 - MixedPrecision - INFO - 
+**********************************************************************************************
+Mixed Precision Statistics
+Mixed precision model accuracy 0.6265
+
+**********************************************************************************************
+
+Activation Quantizers flipped from baseline candidate - (8, <QuantizationDataType.int: 1>)
+Percentage of Activation Quantizers flipped from baseline  0.0 
+**********************************************************************************************
+
+Parameter Quantizers flipped from baseline candidate: - (8, <QuantizationDataType.int: 1>)
+('weight', 'conv2', (4, <QuantizationDataType.int: 1>))
+('weight', 'fc', (4, <QuantizationDataType.int: 1>))
+Percentage of Parameter Quantizers flipped from baseline  66.66666666666667 
+**********************************************************************************************
+Percentage of all Quantizers flipped from baseline  28.571428571428573 
+**********************************************************************************************
+Total Number of activation quantizers are  4 
+**********************************************************************************************
+Total Number of Param quantizers are  3 
+**********************************************************************************************
+Total Number of quantizers are  7 
+**********************************************************************************************
+
+AMP mixed precision:           62.86%
+
+Weight bitwidth chosen per layer:
+  conv1: 8-bit
+  conv2: 4-bit
+  fc: 4-bit
